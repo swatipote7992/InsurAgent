@@ -1,6 +1,6 @@
 # InsurAgent
 
-A LangGraph research agent: a GPT-3.5 LLM node that calls a Tavily web-search tool in a loop until it can answer.
+An AI-assisted car insurance demo. A React frontend in `frontend/` provides the application shell (left navigation and home page). `agent.py` is the LangGraph starting point, a GPT-3.5 LLM node that calls a Tavily web-search tool in a loop, which later features will turn into the underwriting agent.
 
 ## Setup
 
@@ -12,6 +12,21 @@ copy .env.example .env   # then fill in OPENAI_API_KEY and TAVILY_API_KEY
 python agent.py
 ```
 
+## Frontend
+
+Requires Node.js 24 and npm 11. No API keys or network are needed after install.
+
+```powershell
+cd frontend
+npm install      # once
+npm run dev      # http://localhost:5173
+npm run check    # tsc --noEmit
+npm test         # vitest run
+npm run build    # production bundle in frontend/dist
+```
+
+Validation scenarios are in `specs/001-app-shell/quickstart.md`.
+
 ## Activity log
 
 1. Created virtual environment: `python -m venv venv`.
@@ -21,6 +36,12 @@ python agent.py
 4. Froze dependencies: `pip freeze > requirements.txt` (75 lines).
 5. Created `.env.example` listing the required API keys.
 6. Created this `README.md` with setup steps and this log.
+7. Feature 001 on branch `001-app-shell`: ran `/speckit-specify`, `/speckit-clarify`, `/speckit-plan`, `/speckit-tasks` and `/speckit-implement`.
+   The first spec (a UK car insurance quote form) was rescoped to the application shell and home page only; the quote spec is parked in `specs/drafts/car-insurance-quote-spec.md` for a later feature.
+8. Created `frontend/` with Vite 8, React 19, TypeScript 7, React Router 8, Tailwind CSS 4 and Vitest 5 (versions and migration notes in `specs/001-app-shell/research.md`).
+   `npm test` 12 passing, `npm run check` clean, `npm run build` succeeds.
+9. Quickstart validation (`specs/001-app-shell/quickstart.md`): scenarios 1 to 7 are covered by the automated tests; the dev server was confirmed to serve `/`, `/underwriter` and `/nothing-here` directly (direct open and refresh).
+   Scenario 8 (375 px width, no horizontal scroll) was not checked in a browser this session and is still to be eyeballed.
 
 ## GitHub Spec Kit
 
@@ -52,12 +73,22 @@ Steps to add [GitHub Spec Kit](https://github.com/github/spec-kit) to this proje
 
 ### 4. First feature
 
-- [ ] 4.1 `/speckit-specify <what and why>` creates `specs/001-<name>/spec.md` and a feature branch.
-- [ ] 4.2 `/speckit-clarify` resolves ambiguities in the spec.
-- [ ] 4.3 `/speckit-plan <tech choices>` creates `plan.md`, research and data model.
-- [ ] 4.4 `/speckit-tasks` creates `tasks.md` with ordered tasks.
-- [ ] 4.5 `/speckit-analyze` (optional) checks spec, plan and tasks for consistency.
-- [ ] 4.6 `/speckit-implement` executes the tasks.
+- [x] 4.1 `/speckit-specify <what and why>` creates `specs/001-<name>/spec.md` and a feature branch.
+      Created `specs/001-app-shell/spec.md` on branch `001-app-shell` (renamed from `001-quote-creation-form` after rescoping).
+- [x] 4.2 `/speckit-clarify` resolves ambiguities in the spec.
+      Three questions answered for the car quote draft (UK/GBP, no AI in v1, six referral rules); none needed for the shell spec.
+- [x] 4.3 `/speckit-plan <tech choices>` creates `plan.md`, research and data model.
+      Chose Vite + React + TypeScript + React Router + Tailwind; `research.md` records migration notes for the new majors.
+- [x] 4.4 `/speckit-tasks` creates `tasks.md` with ordered tasks.
+      32 tasks across setup, foundational, two user stories and polish, tests before code.
+- [ ] 4.5 `/speckit-analyze` (optional) checks spec, plan and tasks for consistency. Skipped this time.
+- [x] 4.6 `/speckit-implement` executes the tasks.
+      Built `frontend/`; all tasks ticked in `specs/001-app-shell/tasks.md`.
+
+### 5. Pending constitution amendment
+
+- [ ] 5.1 The constitution's runtime line names only Python 3.13. Feature 001 added Node.js 24 for the frontend (pinned by `frontend/package-lock.json`).
+      Run `/speckit-constitution` to make a PATCH amendment naming both runtimes (see `specs/001-app-shell/plan.md`, Complexity Tracking).
 
 ## To DO
 1. Create an insurance application
@@ -69,6 +100,6 @@ Steps to add [GitHub Spec Kit](https://github.com/github/spec-kit) to this proje
 7. Generate a quote
 8. Show the deterministic rating engine calculating the premium.
 9. Issue a policy
-7. Accept the quote, confirm sandbox payment and generate the policy document.
-8. Show the technical implementation
-9. Open LangGraph traces, agent tool calls, checkpointed state and evaluation results.
+10. Accept the quote, confirm sandbox payment and generate the policy document.
+11. Show the technical implementation
+12. Open LangGraph traces, agent tool calls, checkpointed state and evaluation results.
