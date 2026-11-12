@@ -48,7 +48,7 @@ Steps to add [GitHub Spec Kit](https://github.com/github/spec-kit) to this proje
 - [x] 3.1 Run `/speckit-constitution` to set the project principles.
       Wrote `.specify/memory/constitution.md` v1.0.0 with five principles: LangGraph orchestration,
       deterministic code for money, human in the loop for high risk, offline tests, typed and observable.
-- [ ] 3.2 Commit the Spec Kit scaffolding and the constitution.
+- [x] 3.2 Commit the Spec Kit scaffolding and the constitution.
 
 ### 4. First feature
 
