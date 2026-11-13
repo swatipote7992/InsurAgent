@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat >> *)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\spote\\Projects\\backProj\\InsurAgent\\frontend\\src"
+    ]
+  }
+}
