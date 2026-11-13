@@ -6,3 +6,4 @@ graph.png
 .claude/settings.local.json
 node_modules/
 frontend/dist/
+frontend/package-lock.json

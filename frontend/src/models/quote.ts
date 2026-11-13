@@ -11,6 +11,7 @@ export type QuoteStatus = keyof typeof QUOTE_STATUS_CLASSES;
 export interface Quote {
   reference: string;
   status: QuoteStatus;
+  created_on: string;
   policyholder: { full_name: string };
   vehicle: { make: string; model: string };
   cover: { cover_level: string };
