@@ -14,5 +14,5 @@ export interface Quote {
   policyholder: { full_name: string };
   vehicle: { make: string; model: string };
   cover: { cover_level: string };
-  premium: { annual_total_gbp: number } | null;
+  premium: { estimated_total_gbp: number } | null;
 }

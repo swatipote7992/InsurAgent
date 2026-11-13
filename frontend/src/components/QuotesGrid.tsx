@@ -24,7 +24,7 @@ export default function QuotesGrid() {
           <th className="p-2">Car</th>
           <th className="p-2">Cover</th>
           <th className="p-2">Status</th>
-          <th className="p-2 text-right">Annual premium</th>
+          <th className="p-2 text-right">EstimatedPremium</th>
         </tr>
       </thead>
       <tbody>
@@ -40,7 +40,7 @@ export default function QuotesGrid() {
               </span>
             </td>
             <td className="p-2 text-right">
-              {q.premium ? `£${q.premium.annual_total_gbp.toFixed(2)}` : "-"}
+              {q.premium ? `£${q.premium.estimated_total_gbp.toFixed(2)}` : "-"}
             </td>
           </tr>
         ))}
