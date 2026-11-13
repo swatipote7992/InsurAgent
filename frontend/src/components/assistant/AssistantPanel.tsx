@@ -7,6 +7,9 @@ interface AssistantPanelProps {
   sending: boolean;
   /** True while the opening menu of quick actions is shown. */
   showActions: boolean;
+  /** True when the panel is shown at its large size. */
+  expanded: boolean;
+  onToggleExpanded: () => void;
   onAction: (action: AssistantAction) => void;
   onSend: (text: string) => void;
   onClose: () => void;
@@ -55,6 +58,8 @@ export default function AssistantPanel({
   messages,
   sending,
   showActions,
+  expanded,
+  onToggleExpanded,
   onAction,
   onSend,
   onClose,
@@ -82,7 +87,10 @@ export default function AssistantPanel({
       id={id}
       role="dialog"
       aria-label="AI assistant"
-      className="assistant-panel fixed bottom-24 right-6 z-50 flex h-[32rem] max-h-[calc(100vh-8rem)] w-[22rem] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-2xl border border-white/60 bg-white"
+      data-size={expanded ? "expanded" : "normal"}
+      className={`assistant-panel fixed bottom-24 right-6 z-50 flex max-h-[calc(100vh-8rem)] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-2xl border border-white/60 bg-white ${
+        expanded ? "h-[calc(100vh-8rem)] w-[72rem]" : "h-[44rem] w-[30rem]"
+      }`}
     >
       <div className="assistant-header flex items-center gap-3 px-4 py-3 text-white">
         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/20 ring-1 ring-white/40">
@@ -95,6 +103,17 @@ export default function AssistantPanel({
             Demo mode
           </p>
         </div>
+        <button
+          type="button"
+          onClick={onToggleExpanded}
+          aria-label={expanded ? "Shrink chat" : "Expand chat"}
+          aria-pressed={expanded}
+          className="rounded-full p-2 text-white/90 hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        >
+          <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            {expanded ? <path d="M10 14l-6 6M4 15v5h5M14 10l6-6M20 9V4h-5" /> : <path d="M14 10l6-6M15 4h5v5M10 14l-6 6M9 20H4v-5" />}
+          </svg>
+        </button>
         <button
           type="button"
           onClick={onClose}

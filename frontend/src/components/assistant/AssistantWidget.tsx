@@ -1,7 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import type { AssistantAction, ChatMessage } from "../../models/assistant";
-import { ASSISTANT_ASK_PROMPT, ASSISTANT_GREETING, askAssistant } from "../../services/assistantApi";
+import {
+  ASSISTANT_ASK_PROMPT,
+  ASSISTANT_GREETING,
+  ASSISTANT_NEW_QUOTE_PROMPT,
+  askAssistant,
+} from "../../services/assistantApi";
 import AssistantPanel from "./AssistantPanel";
 
 const PANEL_ID = "assistant-panel";
@@ -15,6 +20,7 @@ export default function AssistantWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>(() => [message("assistant", ASSISTANT_GREETING)]);
   const [sending, setSending] = useState(false);
   const [showActions, setShowActions] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -49,6 +55,13 @@ export default function AssistantWidget() {
       inputRef.current?.focus();
       return;
     }
+    if (action.kind === "new-quote") {
+      setExpanded(true);
+      setShowActions(false);
+      setMessages((current) => [...current, message("assistant", ASSISTANT_NEW_QUOTE_PROMPT)]);
+      inputRef.current?.focus();
+      return;
+    }
     close();
     navigate(action.to);
   }
@@ -75,6 +88,8 @@ export default function AssistantWidget() {
           messages={messages}
           sending={sending}
           showActions={showActions}
+          expanded={expanded}
+          onToggleExpanded={() => setExpanded((value) => !value)}
           onAction={handleAction}
           onSend={send}
           onClose={close}

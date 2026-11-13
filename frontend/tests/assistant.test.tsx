@@ -2,7 +2,12 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
 import App from "../src/App";
-import { ASSISTANT_ASK_PROMPT, ASSISTANT_GREETING, ASSISTANT_STUB_REPLY } from "../src/services/assistantApi";
+import {
+  ASSISTANT_ASK_PROMPT,
+  ASSISTANT_GREETING,
+  ASSISTANT_NEW_QUOTE_PROMPT,
+  ASSISTANT_STUB_REPLY,
+} from "../src/services/assistantApi";
 
 function renderAt(path: string) {
   return render(
@@ -133,15 +138,46 @@ describe("AI assistant widget", () => {
     expect(screen.queryByRole("group", { name: "Suggested questions" })).not.toBeInTheDocument();
   });
 
-  it("'Create a new quote' opens the Quote page and closes the panel", async () => {
+  it("'Create a new quote' makes the chat window big and keeps it open", async () => {
     const user = userEvent.setup();
     renderAt("/");
     await user.click(openButton());
+    const panel = screen.getByRole("dialog", { name: "AI assistant" });
+    expect(panel).toHaveAttribute("data-size", "normal");
 
     await user.click(screen.getByRole("button", { name: /Create a new quote/ }));
 
-    expect(screen.getByRole("heading", { level: 1, name: "Quote" })).toBeInTheDocument();
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(panel).toHaveAttribute("data-size", "expanded");
+    expect(screen.getByText(ASSISTANT_NEW_QUOTE_PROMPT)).toBeInTheDocument();
+    expect(screen.queryByRole("group", { name: "What would you like to do?" })).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "InsurAgent" })).toBeInTheDocument(); // still on the home page
+    expect(screen.getByLabelText("Message")).toHaveFocus();
+  });
+
+  it("can be shrunk and expanded again with the header button", async () => {
+    const user = userEvent.setup();
+    renderAt("/");
+    await user.click(openButton());
+    const panel = screen.getByRole("dialog", { name: "AI assistant" });
+
+    await user.click(screen.getByRole("button", { name: "Expand chat" }));
+    expect(panel).toHaveAttribute("data-size", "expanded");
+    expect(screen.getByRole("button", { name: "Shrink chat" })).toHaveAttribute("aria-pressed", "true");
+
+    await user.click(screen.getByRole("button", { name: "Shrink chat" }));
+    expect(panel).toHaveAttribute("data-size", "normal");
+  });
+
+  it("stays big when the panel is closed and opened again", async () => {
+    const user = userEvent.setup();
+    renderAt("/");
+    await user.click(openButton());
+    await user.click(screen.getByRole("button", { name: /Create a new quote/ }));
+
+    await user.keyboard("{Escape}");
+    await user.click(openButton());
+
+    expect(screen.getByRole("dialog", { name: "AI assistant" })).toHaveAttribute("data-size", "expanded");
   });
 
   it("'See recent quotes' opens the home page", async () => {
