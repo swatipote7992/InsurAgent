@@ -1,4 +1,5 @@
 import { Outlet } from "react-router";
+import AssistantWidget from "./assistant/AssistantWidget";
 import Sidebar from "./Sidebar";
 
 export default function Layout() {
@@ -8,6 +9,7 @@ export default function Layout() {
       <main className="min-w-0 flex-1 p-8">
         <Outlet />
       </main>
+      <AssistantWidget />
     </div>
   );
 }
