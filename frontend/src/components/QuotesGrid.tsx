@@ -1,20 +1,13 @@
 import { useEffect, useState } from "react";
-
-interface Quote {
-  reference: string;
-  status: "quoted" | "expired" | "referred";
-  policyholder: { full_name: string };
-  vehicle: { make: string; model: string };
-  cover: { cover_level: string };
-  premium: { annual_total_gbp: number } | null;
-}
+import { API_BASE_URL } from "../config";
+import { QUOTE_STATUS_CLASSES, type Quote } from "../models/quote";
 
 export default function QuotesGrid() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetch("/api/quotes")
+    fetch(`${API_BASE_URL}/quotes`)
       .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
       .then((data) => setQuotes(data.quotes))
       .catch(() => setError(true));
@@ -41,7 +34,11 @@ export default function QuotesGrid() {
             <td className="p-2">{q.policyholder.full_name}</td>
             <td className="p-2">{q.vehicle.make} {q.vehicle.model}</td>
             <td className="p-2">{q.cover.cover_level.replaceAll("_", " ")}</td>
-            <td className="p-2">{q.status}</td>
+            <td className="p-2">
+              <span className={`status-badge ${QUOTE_STATUS_CLASSES[q.status] ?? ""}`}>
+                {q.status}
+              </span>
+            </td>
             <td className="p-2 text-right">
               {q.premium ? `£${q.premium.annual_total_gbp.toFixed(2)}` : "-"}
             </td>

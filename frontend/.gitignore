@@ -3,3 +3,6 @@ dist
 *.local
 .env*
 coverage
+
+!.env
+!.env.production

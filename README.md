@@ -106,7 +106,8 @@ Interactive API documentation is generated at http://127.0.0.1:8000/docs.
 
 ### Sample data
 
-`backend/data/quotes.json` holds 10 synthetic UK car insurance quotes: 6 quoted, 1 expired and 3 referred to an underwriter.
+`backend/data/quotes.json` holds 10 synthetic UK car insurance quotes: 2 `New`, 3 `InProgress`, 3 `Referred` to an underwriter and 2 `ReadyForPolicy`.
+The home page grid shows the status as a colour-coded badge (blue New, amber In Progress, red Referred, green Ready for policy).
 Each record has a reference, status, policyholder, vehicle, cover selection, named drivers, premium breakdown and referral reasons.
 The fields follow the parked quote spec in `specs/drafts/car-insurance-quote-spec.md`. No real customer data is used.
 

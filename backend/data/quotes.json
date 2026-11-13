@@ -1,7 +1,7 @@
 [
   {
     "reference": "QTE-2026-0001",
-    "status": "quoted",
+    "status": "ReadyForPolicy",
     "created_on": "2026-11-03",
     "policyholder": {
       "full_name": "Amelia Hartley",
@@ -57,7 +57,7 @@
           "amount_gbp": 120.0
         },
         {
-          "item": "Voluntary excess: £250",
+          "item": "Voluntary excess: 250",
           "amount_gbp": -40.0
         },
         {
@@ -70,7 +70,7 @@
   },
   {
     "reference": "QTE-2026-0002",
-    "status": "quoted",
+    "status": "InProgress",
     "created_on": "2026-11-05",
     "policyholder": {
       "full_name": "Oliver Bennett",
@@ -140,7 +140,7 @@
           "amount_gbp": 120.0
         },
         {
-          "item": "Voluntary excess: £500",
+          "item": "Voluntary excess: 500",
           "amount_gbp": -75.0
         },
         {
@@ -157,7 +157,7 @@
   },
   {
     "reference": "QTE-2026-0003",
-    "status": "quoted",
+    "status": "New",
     "created_on": "2026-10-28",
     "policyholder": {
       "full_name": "Priya Nair",
@@ -211,7 +211,7 @@
           "amount_gbp": 60.0
         },
         {
-          "item": "Voluntary excess: £100",
+          "item": "Voluntary excess: 100",
           "amount_gbp": -15.0
         }
       ]
@@ -220,7 +220,7 @@
   },
   {
     "reference": "QTE-2026-0004",
-    "status": "quoted",
+    "status": "ReadyForPolicy",
     "created_on": "2026-11-08",
     "policyholder": {
       "full_name": "Thomas Whitfield",
@@ -291,7 +291,7 @@
           "amount_gbp": 120.0
         },
         {
-          "item": "Voluntary excess: £250",
+          "item": "Voluntary excess: 250",
           "amount_gbp": -40.0
         },
         {
@@ -312,7 +312,7 @@
   },
   {
     "reference": "QTE-2026-0005",
-    "status": "expired",
+    "status": "InProgress",
     "created_on": "2026-10-05",
     "policyholder": {
       "full_name": "Chloe Davies",
@@ -366,7 +366,7 @@
           "amount_gbp": 0.0
         },
         {
-          "item": "Voluntary excess: £0",
+          "item": "Voluntary excess: 0",
           "amount_gbp": 0.0
         }
       ]
@@ -375,7 +375,7 @@
   },
   {
     "reference": "QTE-2026-0006",
-    "status": "quoted",
+    "status": "New",
     "created_on": "2026-11-10",
     "policyholder": {
       "full_name": "Marcus Oyelaran",
@@ -431,7 +431,7 @@
           "amount_gbp": 120.0
         },
         {
-          "item": "Voluntary excess: £500",
+          "item": "Voluntary excess: 500",
           "amount_gbp": -75.0
         },
         {
@@ -444,7 +444,7 @@
   },
   {
     "reference": "REF-2026-0001",
-    "status": "referred",
+    "status": "Referred",
     "created_on": "2026-11-09",
     "policyholder": {
       "full_name": "Jack Thornton",
@@ -493,7 +493,7 @@
   },
   {
     "reference": "REF-2026-0002",
-    "status": "referred",
+    "status": "Referred",
     "created_on": "2026-11-11",
     "policyholder": {
       "full_name": "Victoria Langford",
@@ -537,7 +537,7 @@
     "referral_reasons": [
       {
         "rule_id": "R-005",
-        "reason": "Estimated car value £78,000 is greater than £50,000.",
+        "reason": "Estimated car value 78,000 is greater than 50,000.",
         "applies_to": "vehicle"
       },
       {
@@ -549,7 +549,7 @@
   },
   {
     "reference": "QTE-2026-0007",
-    "status": "quoted",
+    "status": "InProgress",
     "created_on": "2026-11-12",
     "policyholder": {
       "full_name": "Hannah Fraser",
@@ -619,7 +619,7 @@
           "amount_gbp": 120.0
         },
         {
-          "item": "Voluntary excess: £250",
+          "item": "Voluntary excess: 250",
           "amount_gbp": -40.0
         },
         {
@@ -636,7 +636,7 @@
   },
   {
     "reference": "REF-2026-0003",
-    "status": "referred",
+    "status": "Referred",
     "created_on": "2026-11-06",
     "policyholder": {
       "full_name": "George Pemberton",
