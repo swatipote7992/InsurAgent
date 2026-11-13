@@ -12,37 +12,6 @@ copy .env.example .env   # then fill in OPENAI_API_KEY and TAVILY_API_KEY
 python agent.py
 ```
 
-## Frontend
-
-Requires Node.js 24 and npm 11. No API keys or network are needed after install.
-
-```powershell
-cd frontend
-npm install      # once
-npm run dev      # http://localhost:5173
-npm run check    # tsc --noEmit
-npm test         # vitest run
-npm run build    # production bundle in frontend/dist
-```
-
-Validation scenarios are in `specs/001-app-shell/quickstart.md`.
-
-## Activity log
-
-1. Created virtual environment: `python -m venv venv`.
-2. Activated it: `.\venv\Scripts\Activate.ps1`.
-3. Installed: `python-dotenv langgraph langchain-core langchain-openai langchain-community tavily-python ipython`.
-   (pip printed an "upgrade pip" notice on stderr, which PowerShell showed as an error; the install itself succeeded.)
-4. Froze dependencies: `pip freeze > requirements.txt` (75 lines).
-5. Created `.env.example` listing the required API keys.
-6. Created this `README.md` with setup steps and this log.
-7. Feature 001 on branch `001-app-shell`: ran `/speckit-specify`, `/speckit-clarify`, `/speckit-plan`, `/speckit-tasks` and `/speckit-implement`.
-   The first spec (a UK car insurance quote form) was rescoped to the application shell and home page only; the quote spec is parked in `specs/drafts/car-insurance-quote-spec.md` for a later feature.
-8. Created `frontend/` with Vite 8, React 19, TypeScript 7, React Router 8, Tailwind CSS 4 and Vitest 5 (versions and migration notes in `specs/001-app-shell/research.md`).
-   `npm test` 12 passing, `npm run check` clean, `npm run build` succeeds.
-9. Quickstart validation (`specs/001-app-shell/quickstart.md`): scenarios 1 to 7 are covered by the automated tests; the dev server was confirmed to serve `/`, `/underwriter` and `/nothing-here` directly (direct open and refresh).
-   Scenario 8 (375 px width, no horizontal scroll) was not checked in a browser this session and is still to be eyeballed.
-
 ## GitHub Spec Kit
 
 Steps to add [GitHub Spec Kit](https://github.com/github/spec-kit) to this project. Each step is ticked once it has been done.
@@ -89,6 +58,149 @@ Steps to add [GitHub Spec Kit](https://github.com/github/spec-kit) to this proje
 
 - [ ] 5.1 The constitution's runtime line names only Python 3.13. Feature 001 added Node.js 24 for the frontend (pinned by `frontend/package-lock.json`).
       Run `/speckit-constitution` to make a PATCH amendment naming both runtimes (see `specs/001-app-shell/plan.md`, Complexity Tracking).
+
+## Backend
+
+A Python API in `backend/` that will serve quotes, underwriting decisions and policies to the frontend.
+It is at an early stage: two sample endpoints and a file of sample data.
+
+### Tech stack
+
+- Python 3.13
+- FastAPI (web framework) and uvicorn (development server)
+
+### Prerequisites
+
+- Python 3.13 on your PATH (`python --version`)
+
+### Install
+
+```powershell
+cd backend
+python -m venv .venv                # create the virtual environment (once)
+.\.venv\Scripts\Activate.ps1        # activate it; the prompt then starts with (.venv)
+pip install fastapi uvicorn         # install dependencies (once)
+```
+
+Activate the virtual environment in every new terminal before running the backend. `deactivate` leaves it.
+
+If PowerShell refuses to run `Activate.ps1`, allow local scripts once with
+`Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`, then activate again.
+From Command Prompt use `.venv\Scripts\activate.bat`; from Git Bash use `source .venv/Scripts/activate`.
+
+### Run
+
+```powershell
+uvicorn app:app --reload
+```
+
+The API runs at http://127.0.0.1:8000 and reloads when a file changes.
+Interactive API documentation is generated at http://127.0.0.1:8000/docs.
+
+### API endpoints
+
+| Method | Path | Returns |
+|---|---|---|
+| GET | `/` | A hello-world message |
+| GET | `/quotes` | A placeholder list of three quote names (not yet read from `data/quotes.json`) |
+
+### Sample data
+
+`backend/data/quotes.json` holds 10 synthetic UK car insurance quotes: 2 `New`, 3 `InProgress`, 3 `Referred` to an underwriter and 2 `ReadyForPolicy`.
+The home page grid shows the status as a colour-coded badge (blue New, amber In Progress, red Referred, green Ready for policy).
+Each record has a reference, status, policyholder, vehicle, cover selection, named drivers, premium breakdown and referral reasons.
+The fields follow the parked quote spec in `specs/drafts/car-insurance-quote-spec.md`. No real customer data is used.
+
+### Project structure
+
+```text
+backend/
+├── app.py            # FastAPI application and routes
+├── data/
+│   └── quotes.json   # 10 synthetic sample quotes
+└── .venv/            # virtual environment (not committed)
+```
+
+### Tests
+
+None yet.
+
+## Frontend
+
+A single-page web application in `frontend/` that provides the application shell: a left navigation, the home page and placeholder pages for the areas still to be built.
+It makes no backend calls yet and needs no sign-in.
+
+### Tech stack
+
+- React 19 and TypeScript 7
+- Vite 8 (development server and build)
+- React Router 8 (routing)
+- Tailwind CSS 4 (styling)
+- Vitest 5 and Testing Library (tests)
+
+### Prerequisites
+
+- Node.js 24 and npm 11
+
+### Install
+
+```powershell
+cd frontend
+npm install
+```
+
+No API keys are needed, and no network access is needed after install.
+
+### Run
+
+```powershell
+npm run dev
+```
+
+The app runs at http://localhost:5173.
+
+### Scripts
+
+| Command | What it does |
+|---|---|
+| `npm run dev` | Starts the development server |
+| `npm run check` | Type-checks with `tsc --noEmit` |
+| `npm test` | Runs the test suite once with Vitest |
+| `npm run build` | Type-checks, then builds the production bundle into `frontend/dist` |
+| `npm run preview` | Serves the production bundle locally |
+
+### Pages
+
+| Path | Page |
+|---|---|
+| `/` | Home: the InsurAgent heading, a short description of the demo, a notice that no real customer data is used, and a "Get a quote" button that goes to `/quote` |
+| `/quote`, `/policy`, `/underwriter`, `/claims` | Placeholder: "The <area> area is not yet available." |
+| anything else | Not found, shown inside the same shell |
+
+The left navigation links to Home, Quote, Policy, Underwriter and Claims and highlights the current area. On narrow screens it moves to the top of the page.
+The sidebar links and the routes both come from one list, `NAV_ITEMS` in `frontend/src/nav.ts`, so adding an area means adding one entry there.
+
+### Project structure
+
+```text
+frontend/
+├── index.html
+├── src/
+│   ├── main.tsx          # entry point; supplies the router
+│   ├── App.tsx           # routes
+│   ├── nav.ts            # NAV_ITEMS: sidebar links and routes
+│   ├── components/       # Layout, Sidebar
+│   └── pages/            # Home, Placeholder, NotFound
+└── tests/                # Vitest tests for home, navigation and placeholders
+```
+
+### Tests
+
+```powershell
+npm test
+```
+
+Manual validation scenarios are in `specs/001-app-shell/quickstart.md`.
 
 ## To DO
 1. Create an insurance application
