@@ -1,8 +1,9 @@
 import { Link } from "react-router";
+import QuotesGrid from "../components/QuotesGrid";
 
 export default function Home() {
   return (
-    <div className="max-w-2xl">
+    <div className="max-w-5xl">
       <h1 className="text-3xl font-bold">InsurAgent</h1>
       <p className="mt-4 text-lg text-gray-700">
         InsurAgent is a demonstration of AI-assisted car insurance. An agent helps gather and
@@ -16,6 +17,8 @@ export default function Home() {
       >
         Get a quote
       </Link>
+
+      <QuotesGrid />
     </div>
   );
 }

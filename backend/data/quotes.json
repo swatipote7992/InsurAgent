@@ -1,0 +1,693 @@
+[
+  {
+    "reference": "QTE-2026-0001",
+    "status": "quoted",
+    "created_on": "2026-11-03",
+    "policyholder": {
+      "full_name": "Amelia Hartley",
+      "date_of_birth": "1988-03-14",
+      "email": "amelia.hartley@example.com",
+      "postcode_area": "M",
+      "licence_type": "full_uk",
+      "years_licence_held": 16
+    },
+    "vehicle": {
+      "make": "Ford",
+      "model": "Fiesta",
+      "year_of_manufacture": 2019,
+      "category": "hatchback",
+      "estimated_value_gbp": 9500,
+      "annual_mileage_band": "5001_to_10000",
+      "overnight_parking": "driveway",
+      "main_use": "social_and_commuting"
+    },
+    "cover": {
+      "cover_level": "comprehensive",
+      "voluntary_excess_gbp": 250,
+      "optional_extras": [
+        "breakdown_cover"
+      ],
+      "start_date": "2026-11-15"
+    },
+    "drivers": [
+      {
+        "full_name": "Amelia Hartley",
+        "date_of_birth": "1988-03-14",
+        "relationship_to_policyholder": "policyholder",
+        "years_licence_held": 16,
+        "claims_last_5_years": 0,
+        "convictions_last_5_years": 0,
+        "is_main_driver": true
+      }
+    ],
+    "expires_on": "2026-12-03",
+    "premium": {
+      "annual_total_gbp": 530.0,
+      "breakdown": [
+        {
+          "item": "Vehicle: Ford Fiesta",
+          "amount_gbp": 310.0
+        },
+        {
+          "item": "Driver: Amelia Hartley",
+          "amount_gbp": 95.0
+        },
+        {
+          "item": "Cover level: comprehensive",
+          "amount_gbp": 120.0
+        },
+        {
+          "item": "Voluntary excess: £250",
+          "amount_gbp": -40.0
+        },
+        {
+          "item": "Extra: breakdown cover",
+          "amount_gbp": 45.0
+        }
+      ]
+    },
+    "referral_reasons": []
+  },
+  {
+    "reference": "QTE-2026-0002",
+    "status": "quoted",
+    "created_on": "2026-11-05",
+    "policyholder": {
+      "full_name": "Oliver Bennett",
+      "date_of_birth": "1975-07-22",
+      "email": "oliver.bennett@example.com",
+      "postcode_area": "LS",
+      "licence_type": "full_uk",
+      "years_licence_held": 30
+    },
+    "vehicle": {
+      "make": "Volkswagen",
+      "model": "Golf",
+      "year_of_manufacture": 2021,
+      "category": "hatchback",
+      "estimated_value_gbp": 18000,
+      "annual_mileage_band": "10001_to_15000",
+      "overnight_parking": "garage",
+      "main_use": "social_and_commuting"
+    },
+    "cover": {
+      "cover_level": "comprehensive",
+      "voluntary_excess_gbp": 500,
+      "optional_extras": [
+        "legal_protection",
+        "courtesy_car"
+      ],
+      "start_date": "2026-12-01"
+    },
+    "drivers": [
+      {
+        "full_name": "Oliver Bennett",
+        "date_of_birth": "1975-07-22",
+        "relationship_to_policyholder": "policyholder",
+        "years_licence_held": 30,
+        "claims_last_5_years": 0,
+        "convictions_last_5_years": 0,
+        "is_main_driver": true
+      },
+      {
+        "full_name": "Sarah Bennett",
+        "date_of_birth": "1977-11-02",
+        "relationship_to_policyholder": "spouse",
+        "years_licence_held": 27,
+        "claims_last_5_years": 0,
+        "convictions_last_5_years": 0,
+        "is_main_driver": false
+      }
+    ],
+    "expires_on": "2026-12-05",
+    "premium": {
+      "annual_total_gbp": 595.0,
+      "breakdown": [
+        {
+          "item": "Vehicle: Volkswagen Golf",
+          "amount_gbp": 385.0
+        },
+        {
+          "item": "Driver: Oliver Bennett",
+          "amount_gbp": 70.0
+        },
+        {
+          "item": "Driver: Sarah Bennett",
+          "amount_gbp": 35.0
+        },
+        {
+          "item": "Cover level: comprehensive",
+          "amount_gbp": 120.0
+        },
+        {
+          "item": "Voluntary excess: £500",
+          "amount_gbp": -75.0
+        },
+        {
+          "item": "Extra: legal protection",
+          "amount_gbp": 28.0
+        },
+        {
+          "item": "Extra: courtesy car",
+          "amount_gbp": 32.0
+        }
+      ]
+    },
+    "referral_reasons": []
+  },
+  {
+    "reference": "QTE-2026-0003",
+    "status": "quoted",
+    "created_on": "2026-10-28",
+    "policyholder": {
+      "full_name": "Priya Nair",
+      "date_of_birth": "1995-01-30",
+      "email": "priya.nair@example.com",
+      "postcode_area": "B",
+      "licence_type": "full_uk",
+      "years_licence_held": 8
+    },
+    "vehicle": {
+      "make": "Toyota",
+      "model": "Yaris",
+      "year_of_manufacture": 2017,
+      "category": "hatchback",
+      "estimated_value_gbp": 7200,
+      "annual_mileage_band": "up_to_5000",
+      "overnight_parking": "street",
+      "main_use": "social_only"
+    },
+    "cover": {
+      "cover_level": "third_party_fire_and_theft",
+      "voluntary_excess_gbp": 100,
+      "optional_extras": [],
+      "start_date": "2026-11-10"
+    },
+    "drivers": [
+      {
+        "full_name": "Priya Nair",
+        "date_of_birth": "1995-01-30",
+        "relationship_to_policyholder": "policyholder",
+        "years_licence_held": 8,
+        "claims_last_5_years": 0,
+        "convictions_last_5_years": 0,
+        "is_main_driver": true
+      }
+    ],
+    "expires_on": "2026-11-27",
+    "premium": {
+      "annual_total_gbp": 450.0,
+      "breakdown": [
+        {
+          "item": "Vehicle: Toyota Yaris",
+          "amount_gbp": 265.0
+        },
+        {
+          "item": "Driver: Priya Nair",
+          "amount_gbp": 140.0
+        },
+        {
+          "item": "Cover level: third party, fire and theft",
+          "amount_gbp": 60.0
+        },
+        {
+          "item": "Voluntary excess: £100",
+          "amount_gbp": -15.0
+        }
+      ]
+    },
+    "referral_reasons": []
+  },
+  {
+    "reference": "QTE-2026-0004",
+    "status": "quoted",
+    "created_on": "2026-11-08",
+    "policyholder": {
+      "full_name": "Thomas Whitfield",
+      "date_of_birth": "1962-09-05",
+      "email": "thomas.whitfield@example.com",
+      "postcode_area": "EH",
+      "licence_type": "full_uk",
+      "years_licence_held": 42
+    },
+    "vehicle": {
+      "make": "Volvo",
+      "model": "XC60",
+      "year_of_manufacture": 2022,
+      "category": "suv",
+      "estimated_value_gbp": 34000,
+      "annual_mileage_band": "5001_to_10000",
+      "overnight_parking": "garage",
+      "main_use": "social_only"
+    },
+    "cover": {
+      "cover_level": "comprehensive",
+      "voluntary_excess_gbp": 250,
+      "optional_extras": [
+        "breakdown_cover",
+        "legal_protection",
+        "courtesy_car"
+      ],
+      "start_date": "2026-11-20"
+    },
+    "drivers": [
+      {
+        "full_name": "Thomas Whitfield",
+        "date_of_birth": "1962-09-05",
+        "relationship_to_policyholder": "policyholder",
+        "years_licence_held": 42,
+        "claims_last_5_years": 0,
+        "convictions_last_5_years": 0,
+        "is_main_driver": true
+      },
+      {
+        "full_name": "Emily Whitfield",
+        "date_of_birth": "1999-04-18",
+        "relationship_to_policyholder": "child",
+        "years_licence_held": 6,
+        "claims_last_5_years": 1,
+        "convictions_last_5_years": 0,
+        "is_main_driver": false
+      }
+    ],
+    "expires_on": "2026-12-08",
+    "premium": {
+      "annual_total_gbp": 950.0,
+      "breakdown": [
+        {
+          "item": "Vehicle: Volvo XC60",
+          "amount_gbp": 520.0
+        },
+        {
+          "item": "Driver: Thomas Whitfield",
+          "amount_gbp": 60.0
+        },
+        {
+          "item": "Driver: Emily Whitfield",
+          "amount_gbp": 185.0
+        },
+        {
+          "item": "Cover level: comprehensive",
+          "amount_gbp": 120.0
+        },
+        {
+          "item": "Voluntary excess: £250",
+          "amount_gbp": -40.0
+        },
+        {
+          "item": "Extra: breakdown cover",
+          "amount_gbp": 45.0
+        },
+        {
+          "item": "Extra: legal protection",
+          "amount_gbp": 28.0
+        },
+        {
+          "item": "Extra: courtesy car",
+          "amount_gbp": 32.0
+        }
+      ]
+    },
+    "referral_reasons": []
+  },
+  {
+    "reference": "QTE-2026-0005",
+    "status": "expired",
+    "created_on": "2026-10-05",
+    "policyholder": {
+      "full_name": "Chloe Davies",
+      "date_of_birth": "2000-06-11",
+      "email": "chloe.davies@example.com",
+      "postcode_area": "CF",
+      "licence_type": "full_uk",
+      "years_licence_held": 5
+    },
+    "vehicle": {
+      "make": "Vauxhall",
+      "model": "Corsa",
+      "year_of_manufacture": 2016,
+      "category": "hatchback",
+      "estimated_value_gbp": 5400,
+      "annual_mileage_band": "5001_to_10000",
+      "overnight_parking": "street",
+      "main_use": "social_and_commuting"
+    },
+    "cover": {
+      "cover_level": "third_party_only",
+      "voluntary_excess_gbp": 0,
+      "optional_extras": [],
+      "start_date": "2026-10-12"
+    },
+    "drivers": [
+      {
+        "full_name": "Chloe Davies",
+        "date_of_birth": "2000-06-11",
+        "relationship_to_policyholder": "policyholder",
+        "years_licence_held": 5,
+        "claims_last_5_years": 0,
+        "convictions_last_5_years": 0,
+        "is_main_driver": true
+      }
+    ],
+    "expires_on": "2026-11-04",
+    "premium": {
+      "annual_total_gbp": 450.0,
+      "breakdown": [
+        {
+          "item": "Vehicle: Vauxhall Corsa",
+          "amount_gbp": 240.0
+        },
+        {
+          "item": "Driver: Chloe Davies",
+          "amount_gbp": 210.0
+        },
+        {
+          "item": "Cover level: third party only",
+          "amount_gbp": 0.0
+        },
+        {
+          "item": "Voluntary excess: £0",
+          "amount_gbp": 0.0
+        }
+      ]
+    },
+    "referral_reasons": []
+  },
+  {
+    "reference": "QTE-2026-0006",
+    "status": "quoted",
+    "created_on": "2026-11-10",
+    "policyholder": {
+      "full_name": "Marcus Oyelaran",
+      "date_of_birth": "1983-12-19",
+      "email": "marcus.oyelaran@example.com",
+      "postcode_area": "BS",
+      "licence_type": "eu_international",
+      "years_licence_held": 12
+    },
+    "vehicle": {
+      "make": "BMW",
+      "model": "3 Series",
+      "year_of_manufacture": 2020,
+      "category": "saloon",
+      "estimated_value_gbp": 24500,
+      "annual_mileage_band": "over_15000",
+      "overnight_parking": "driveway",
+      "main_use": "social_and_commuting"
+    },
+    "cover": {
+      "cover_level": "comprehensive",
+      "voluntary_excess_gbp": 500,
+      "optional_extras": [
+        "courtesy_car"
+      ],
+      "start_date": "2026-11-24"
+    },
+    "drivers": [
+      {
+        "full_name": "Marcus Oyelaran",
+        "date_of_birth": "1983-12-19",
+        "relationship_to_policyholder": "policyholder",
+        "years_licence_held": 12,
+        "claims_last_5_years": 0,
+        "convictions_last_5_years": 0,
+        "is_main_driver": true
+      }
+    ],
+    "expires_on": "2026-12-10",
+    "premium": {
+      "annual_total_gbp": 657.0,
+      "breakdown": [
+        {
+          "item": "Vehicle: BMW 3 Series",
+          "amount_gbp": 465.0
+        },
+        {
+          "item": "Driver: Marcus Oyelaran",
+          "amount_gbp": 115.0
+        },
+        {
+          "item": "Cover level: comprehensive",
+          "amount_gbp": 120.0
+        },
+        {
+          "item": "Voluntary excess: £500",
+          "amount_gbp": -75.0
+        },
+        {
+          "item": "Extra: courtesy car",
+          "amount_gbp": 32.0
+        }
+      ]
+    },
+    "referral_reasons": []
+  },
+  {
+    "reference": "REF-2026-0001",
+    "status": "referred",
+    "created_on": "2026-11-09",
+    "policyholder": {
+      "full_name": "Jack Thornton",
+      "date_of_birth": "2007-02-08",
+      "email": "jack.thornton@example.com",
+      "postcode_area": "NE",
+      "licence_type": "full_uk",
+      "years_licence_held": 2
+    },
+    "vehicle": {
+      "make": "Renault",
+      "model": "Clio",
+      "year_of_manufacture": 2015,
+      "category": "hatchback",
+      "estimated_value_gbp": 4800,
+      "annual_mileage_band": "5001_to_10000",
+      "overnight_parking": "street",
+      "main_use": "social_and_commuting"
+    },
+    "cover": {
+      "cover_level": "third_party_fire_and_theft",
+      "voluntary_excess_gbp": 250,
+      "optional_extras": [],
+      "start_date": "2026-11-16"
+    },
+    "drivers": [
+      {
+        "full_name": "Jack Thornton",
+        "date_of_birth": "2007-02-08",
+        "relationship_to_policyholder": "policyholder",
+        "years_licence_held": 2,
+        "claims_last_5_years": 0,
+        "convictions_last_5_years": 0,
+        "is_main_driver": true
+      }
+    ],
+    "expires_on": null,
+    "premium": null,
+    "referral_reasons": [
+      {
+        "rule_id": "R-001",
+        "reason": "Driver is younger than 21 (aged 19 on the start date).",
+        "applies_to": "driver: Jack Thornton"
+      }
+    ]
+  },
+  {
+    "reference": "REF-2026-0002",
+    "status": "referred",
+    "created_on": "2026-11-11",
+    "policyholder": {
+      "full_name": "Victoria Langford",
+      "date_of_birth": "1979-05-27",
+      "email": "victoria.langford@example.com",
+      "postcode_area": "SW",
+      "licence_type": "full_uk",
+      "years_licence_held": 25
+    },
+    "vehicle": {
+      "make": "Porsche",
+      "model": "Cayenne",
+      "year_of_manufacture": 2024,
+      "category": "suv",
+      "estimated_value_gbp": 78000,
+      "annual_mileage_band": "10001_to_15000",
+      "overnight_parking": "garage",
+      "main_use": "business"
+    },
+    "cover": {
+      "cover_level": "comprehensive",
+      "voluntary_excess_gbp": 500,
+      "optional_extras": [
+        "legal_protection"
+      ],
+      "start_date": "2026-12-05"
+    },
+    "drivers": [
+      {
+        "full_name": "Victoria Langford",
+        "date_of_birth": "1979-05-27",
+        "relationship_to_policyholder": "policyholder",
+        "years_licence_held": 25,
+        "claims_last_5_years": 0,
+        "convictions_last_5_years": 0,
+        "is_main_driver": true
+      }
+    ],
+    "expires_on": null,
+    "premium": null,
+    "referral_reasons": [
+      {
+        "rule_id": "R-005",
+        "reason": "Estimated car value £78,000 is greater than £50,000.",
+        "applies_to": "vehicle"
+      },
+      {
+        "rule_id": "R-006",
+        "reason": "The car's main use is business.",
+        "applies_to": "application"
+      }
+    ]
+  },
+  {
+    "reference": "QTE-2026-0007",
+    "status": "quoted",
+    "created_on": "2026-11-12",
+    "policyholder": {
+      "full_name": "Hannah Fraser",
+      "date_of_birth": "1991-08-03",
+      "email": "hannah.fraser@example.com",
+      "postcode_area": "G",
+      "licence_type": "full_uk",
+      "years_licence_held": 13
+    },
+    "vehicle": {
+      "make": "Kia",
+      "model": "Sportage",
+      "year_of_manufacture": 2023,
+      "category": "suv",
+      "estimated_value_gbp": 27000,
+      "annual_mileage_band": "10001_to_15000",
+      "overnight_parking": "driveway",
+      "main_use": "social_and_commuting"
+    },
+    "cover": {
+      "cover_level": "comprehensive",
+      "voluntary_excess_gbp": 250,
+      "optional_extras": [
+        "breakdown_cover",
+        "legal_protection"
+      ],
+      "start_date": "2026-11-30"
+    },
+    "drivers": [
+      {
+        "full_name": "Hannah Fraser",
+        "date_of_birth": "1991-08-03",
+        "relationship_to_policyholder": "policyholder",
+        "years_licence_held": 13,
+        "claims_last_5_years": 0,
+        "convictions_last_5_years": 0,
+        "is_main_driver": true
+      },
+      {
+        "full_name": "Callum Reid",
+        "date_of_birth": "1990-02-14",
+        "relationship_to_policyholder": "partner",
+        "years_licence_held": 15,
+        "claims_last_5_years": 1,
+        "convictions_last_5_years": 0,
+        "is_main_driver": false
+      }
+    ],
+    "expires_on": "2026-12-12",
+    "premium": {
+      "annual_total_gbp": 788.0,
+      "breakdown": [
+        {
+          "item": "Vehicle: Kia Sportage",
+          "amount_gbp": 440.0
+        },
+        {
+          "item": "Driver: Hannah Fraser",
+          "amount_gbp": 85.0
+        },
+        {
+          "item": "Driver: Callum Reid",
+          "amount_gbp": 110.0
+        },
+        {
+          "item": "Cover level: comprehensive",
+          "amount_gbp": 120.0
+        },
+        {
+          "item": "Voluntary excess: £250",
+          "amount_gbp": -40.0
+        },
+        {
+          "item": "Extra: breakdown cover",
+          "amount_gbp": 45.0
+        },
+        {
+          "item": "Extra: legal protection",
+          "amount_gbp": 28.0
+        }
+      ]
+    },
+    "referral_reasons": []
+  },
+  {
+    "reference": "REF-2026-0003",
+    "status": "referred",
+    "created_on": "2026-11-06",
+    "policyholder": {
+      "full_name": "George Pemberton",
+      "date_of_birth": "1970-10-10",
+      "email": "george.pemberton@example.com",
+      "postcode_area": "NR",
+      "licence_type": "full_uk",
+      "years_licence_held": 35
+    },
+    "vehicle": {
+      "make": "Skoda",
+      "model": "Octavia",
+      "year_of_manufacture": 2018,
+      "category": "estate",
+      "estimated_value_gbp": 11000,
+      "annual_mileage_band": "over_15000",
+      "overnight_parking": "driveway",
+      "main_use": "social_and_commuting"
+    },
+    "cover": {
+      "cover_level": "comprehensive",
+      "voluntary_excess_gbp": 100,
+      "optional_extras": [
+        "breakdown_cover"
+      ],
+      "start_date": "2026-11-18"
+    },
+    "drivers": [
+      {
+        "full_name": "George Pemberton",
+        "date_of_birth": "1970-10-10",
+        "relationship_to_policyholder": "policyholder",
+        "years_licence_held": 35,
+        "claims_last_5_years": 2,
+        "convictions_last_5_years": 1,
+        "is_main_driver": true
+      }
+    ],
+    "expires_on": null,
+    "premium": null,
+    "referral_reasons": [
+      {
+        "rule_id": "R-003",
+        "reason": "Driver has 2 claims in the last 5 years.",
+        "applies_to": "driver: George Pemberton"
+      },
+      {
+        "rule_id": "R-004",
+        "reason": "Driver has 1 motoring conviction(s) in the last 5 years.",
+        "applies_to": "driver: George Pemberton"
+      }
+    ]
+  }
+]
