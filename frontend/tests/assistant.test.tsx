@@ -8,6 +8,9 @@ import {
   ASSISTANT_STUB_REPLY,
 } from "../src/services/assistantApi";
 
+// The quote chat "types" for a moment before each question; tests do not wait for that.
+vi.mock("../src/components/quote-chat/typing", () => ({ TYPING_DELAY_MS: 0 }));
+
 function renderAt(path: string) {
   return render(
     <MemoryRouter initialEntries={[path]}>
@@ -147,16 +150,17 @@ describe("AI assistant widget", () => {
     const screenDialog = screen.getByRole("dialog", { name: "New quote" });
     expect(within(screenDialog).getByRole("heading", { name: "New quote" })).toBeInTheDocument();
     expect(within(screenDialog).getByRole("region", { name: "Quote conversation" })).toHaveTextContent(
-      "Hi! Let's create your quote together.",
+      "Let's create your quote together.",
     );
     const summary = within(screenDialog).getByRole("complementary", { name: "Your quote so far" });
-    for (const label of ["Full name", "Make", "Model", "Start date", "Cover level", "Optional extras"]) {
+    for (const label of ["Full name", "Car", "Start date", "Cover level", "Voluntary excess"]) {
       expect(within(summary).getByText(label)).toBeInTheDocument();
     }
     // The page stays on the home page underneath, and the small assistant is out of the way.
     expect(screen.queryByRole("dialog", { name: "AI assistant" })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Close assistant" })).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Back to assistant" })).toHaveFocus();
+    // The assistant starts asking by itself: the first question appears with its answer box, ready to type in.
+    expect(await screen.findByLabelText("Start date")).toHaveFocus();
   });
 
   it("'Back to assistant' returns to the assistant chat", async () => {
