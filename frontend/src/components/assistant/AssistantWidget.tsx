@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import type { ChatMessage } from "../../models/assistant";
-import { ASSISTANT_GREETING, askAssistant } from "../../services/assistantApi";
+import { useNavigate } from "react-router";
+import type { AssistantAction, ChatMessage } from "../../models/assistant";
+import { ASSISTANT_ASK_PROMPT, ASSISTANT_GREETING, askAssistant } from "../../services/assistantApi";
 import AssistantPanel from "./AssistantPanel";
 
 const PANEL_ID = "assistant-panel";
@@ -13,6 +14,8 @@ export default function AssistantWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>(() => [message("assistant", ASSISTANT_GREETING)]);
   const [sending, setSending] = useState(false);
+  const [showActions, setShowActions] = useState(true);
+  const navigate = useNavigate();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -39,7 +42,19 @@ export default function AssistantWidget() {
     buttonRef.current?.focus();
   }
 
+  function handleAction(action: AssistantAction) {
+    if (action.kind === "ask") {
+      setShowActions(false);
+      setMessages((current) => [...current, message("assistant", ASSISTANT_ASK_PROMPT)]);
+      inputRef.current?.focus();
+      return;
+    }
+    close();
+    navigate(action.to);
+  }
+
   async function send(text: string) {
+    setShowActions(false);
     setMessages((current) => [...current, message("user", text)]);
     setSending(true);
     let reply: string;
@@ -59,6 +74,8 @@ export default function AssistantWidget() {
           id={PANEL_ID}
           messages={messages}
           sending={sending}
+          showActions={showActions}
+          onAction={handleAction}
           onSend={send}
           onClose={close}
           inputRef={inputRef}

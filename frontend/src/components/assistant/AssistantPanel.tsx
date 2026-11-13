@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState, type RefObject, type SyntheticEvent } from "react";
-import type { ChatMessage } from "../../models/assistant";
+import { ASSISTANT_ACTIONS, type AssistantAction, type ChatMessage } from "../../models/assistant";
 
 interface AssistantPanelProps {
   id: string;
   messages: ChatMessage[];
   sending: boolean;
+  /** True while the opening menu of quick actions is shown. */
+  showActions: boolean;
+  onAction: (action: AssistantAction) => void;
   onSend: (text: string) => void;
   onClose: () => void;
   inputRef: RefObject<HTMLInputElement | null>;
@@ -22,8 +25,41 @@ function Sparkle({ className }: { className: string }) {
   );
 }
 
-/** The chat window: header, conversation, suggestions and the message box. */
-export default function AssistantPanel({ id, messages, sending, onSend, onClose, inputRef }: AssistantPanelProps) {
+function ActionIcon({ id }: { id: AssistantAction["id"] }) {
+  const common = { viewBox: "0 0 24 24", className: "h-5 w-5", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+  if (id === "ask") {
+    return (
+      <svg {...common}>
+        <path d="M4 5h16v11H9l-5 4V5z" />
+        <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.4" />
+      </svg>
+    );
+  }
+  if (id === "new-quote") {
+    return (
+      <svg {...common}>
+        <path d="M12 5v14M5 12h14" />
+      </svg>
+    );
+  }
+  return (
+    <svg {...common}>
+      <path d="M5 7h14M5 12h14M5 17h9" />
+    </svg>
+  );
+}
+
+/** The chat window: header, quick actions, conversation, suggestions and the message box. */
+export default function AssistantPanel({
+  id,
+  messages,
+  sending,
+  showActions,
+  onAction,
+  onSend,
+  onClose,
+  inputRef,
+}: AssistantPanelProps) {
   const [draft, setDraft] = useState("");
   const endRef = useRef<HTMLDivElement>(null);
   const hasConversation = messages.some((message) => message.role === "user");
@@ -95,6 +131,27 @@ export default function AssistantPanel({ id, messages, sending, onSend, onClose,
           ))}
         </div>
 
+        {showActions && (
+          <div className="assistant-message mt-4 space-y-2" role="group" aria-label="What would you like to do?">
+            {ASSISTANT_ACTIONS.map((action) => (
+              <button
+                key={action.id}
+                type="button"
+                onClick={() => onAction(action)}
+                className="flex w-full items-center gap-3 rounded-xl border border-indigo-100 bg-white p-3 text-left shadow-sm transition hover:border-indigo-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+              >
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600" aria-hidden="true">
+                  <ActionIcon id={action.id} />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-sm font-semibold text-gray-900">{action.label}</span>
+                  <span className="block text-xs text-gray-500">{action.description}</span>
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
+
         {sending && (
           <div role="status" className="assistant-message mt-3 flex items-end gap-2">
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
@@ -113,7 +170,7 @@ export default function AssistantPanel({ id, messages, sending, onSend, onClose,
           </div>
         )}
 
-        {!hasConversation && !sending && (
+        {!showActions && !hasConversation && !sending && (
           <div className="mt-4 flex flex-wrap gap-2" aria-label="Suggested questions" role="group">
             {SUGGESTIONS.map((suggestion) => (
               <button

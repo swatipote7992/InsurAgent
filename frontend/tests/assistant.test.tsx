@@ -2,7 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
 import App from "../src/App";
-import { ASSISTANT_GREETING, ASSISTANT_STUB_REPLY } from "../src/services/assistantApi";
+import { ASSISTANT_ASK_PROMPT, ASSISTANT_GREETING, ASSISTANT_STUB_REPLY } from "../src/services/assistantApi";
 
 function renderAt(path: string) {
   return render(
@@ -119,10 +119,70 @@ describe("AI assistant widget", () => {
     expect(screen.getByText(ASSISTANT_STUB_REPLY)).toBeInTheDocument();
   });
 
+  it("offers quick actions when it opens", async () => {
+    const user = userEvent.setup();
+    renderAt("/");
+    await user.click(openButton());
+
+    const menu = screen.getByRole("group", { name: "What would you like to do?" });
+    expect(within(menu).getAllByRole("button").map((b) => b.textContent)).toEqual([
+      "Ask a questionGet help with quotes, cover or excess",
+      "Create a new quoteStart a car insurance quote",
+      "See recent quotesOpen the quotes list on the home page",
+    ]);
+    expect(screen.queryByRole("group", { name: "Suggested questions" })).not.toBeInTheDocument();
+  });
+
+  it("'Create a new quote' opens the Quote page and closes the panel", async () => {
+    const user = userEvent.setup();
+    renderAt("/");
+    await user.click(openButton());
+
+    await user.click(screen.getByRole("button", { name: /Create a new quote/ }));
+
+    expect(screen.getByRole("heading", { level: 1, name: "Quote" })).toBeInTheDocument();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("'See recent quotes' opens the home page", async () => {
+    const user = userEvent.setup();
+    renderAt("/claims");
+    await user.click(openButton());
+
+    await user.click(screen.getByRole("button", { name: /See recent quotes/ }));
+
+    expect(screen.getByRole("heading", { level: 1, name: "InsurAgent" })).toBeInTheDocument();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("'Ask a question' swaps the menu for a prompt and suggestions, and focuses the message box", async () => {
+    const user = userEvent.setup();
+    renderAt("/");
+    await user.click(openButton());
+
+    await user.click(screen.getByRole("button", { name: /Ask a question/ }));
+
+    expect(screen.queryByRole("group", { name: "What would you like to do?" })).not.toBeInTheDocument();
+    expect(screen.getByText(ASSISTANT_ASK_PROMPT)).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: "Suggested questions" })).toBeInTheDocument();
+    expect(screen.getByLabelText("Message")).toHaveFocus();
+  });
+
+  it("hides the quick actions once the visitor sends a message", async () => {
+    const user = userEvent.setup();
+    renderAt("/");
+    await user.click(openButton());
+
+    await user.type(screen.getByLabelText("Message"), "Hi{Enter}");
+
+    expect(screen.queryByRole("group", { name: "What would you like to do?" })).not.toBeInTheDocument();
+  });
+
   it("offers suggested questions before the first message, and sends one when it is chosen", async () => {
     const user = userEvent.setup();
     renderAt("/");
     await user.click(openButton());
+    await user.click(screen.getByRole("button", { name: /Ask a question/ }));
 
     const suggestions = screen.getByRole("group", { name: "Suggested questions" });
     await user.click(within(suggestions).getByRole("button", { name: "What does excess mean?" }));
