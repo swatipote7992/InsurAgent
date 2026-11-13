@@ -1,12 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import type { AssistantAction, ChatMessage } from "../../models/assistant";
-import {
-  ASSISTANT_ASK_PROMPT,
-  ASSISTANT_GREETING,
-  ASSISTANT_NEW_QUOTE_PROMPT,
-  askAssistant,
-} from "../../services/assistantApi";
+import { ASSISTANT_ASK_PROMPT, ASSISTANT_GREETING, askAssistant } from "../../services/assistantApi";
+import QuoteScreen from "../quote-chat/QuoteScreen";
 import AssistantPanel from "./AssistantPanel";
 
 const PANEL_ID = "assistant-panel";
@@ -21,18 +17,19 @@ export default function AssistantWidget() {
   const [sending, setSending] = useState(false);
   const [showActions, setShowActions] = useState(true);
   const [expanded, setExpanded] = useState(false);
+  const [quoteOpen, setQuoteOpen] = useState(false);
   const navigate = useNavigate();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Move focus into the message box when the panel opens.
+  // Move focus into the message box when the panel opens, or comes back from the full-screen quote page.
   useEffect(() => {
-    if (open) inputRef.current?.focus();
-  }, [open]);
+    if (open && !quoteOpen) inputRef.current?.focus();
+  }, [open, quoteOpen]);
 
-  // Escape closes the panel and returns focus to the button.
+  // Escape closes the panel and returns focus to the button (the quote page handles its own Escape).
   useEffect(() => {
-    if (!open) return;
+    if (!open || quoteOpen) return;
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setOpen(false);
@@ -41,7 +38,7 @@ export default function AssistantWidget() {
     }
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [open]);
+  }, [open, quoteOpen]);
 
   function close() {
     setOpen(false);
@@ -56,10 +53,7 @@ export default function AssistantWidget() {
       return;
     }
     if (action.kind === "new-quote") {
-      setExpanded(true);
-      setShowActions(false);
-      setMessages((current) => [...current, message("assistant", ASSISTANT_NEW_QUOTE_PROMPT)]);
-      inputRef.current?.focus();
+      setQuoteOpen(true);
       return;
     }
     close();
@@ -82,7 +76,8 @@ export default function AssistantWidget() {
 
   return (
     <>
-      {open && (
+      {quoteOpen && <QuoteScreen onClose={() => setQuoteOpen(false)} />}
+      {open && !quoteOpen && (
         <AssistantPanel
           id={PANEL_ID}
           messages={messages}
@@ -96,7 +91,7 @@ export default function AssistantWidget() {
           inputRef={inputRef}
         />
       )}
-      <div className="fixed bottom-6 right-6 z-50 h-14 w-14">
+      <div className="fixed bottom-6 right-6 z-50 h-14 w-14" hidden={quoteOpen}>
         {!open && <span className="assistant-launcher-ring absolute inset-0 rounded-full" aria-hidden="true" />}
         <button
           ref={buttonRef}

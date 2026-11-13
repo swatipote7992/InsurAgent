@@ -1,8 +1,6 @@
 export const ASSISTANT_GREETING =
   "Hi! I'm the InsurAgent assistant. Ask me a question and I'll do my best to help.";
 
-export const ASSISTANT_NEW_QUOTE_PROMPT = "Great, let's create a new quote together. The questions will appear here.";
-
 export const ASSISTANT_ASK_PROMPT = "Sure! What would you like to know? Type a question, or pick one of these:";
 
 export const ASSISTANT_STUB_REPLY = "I'm not connected to an AI model yet, so I can't answer questions.";

@@ -5,7 +5,6 @@ import App from "../src/App";
 import {
   ASSISTANT_ASK_PROMPT,
   ASSISTANT_GREETING,
-  ASSISTANT_NEW_QUOTE_PROMPT,
   ASSISTANT_STUB_REPLY,
 } from "../src/services/assistantApi";
 
@@ -138,20 +137,55 @@ describe("AI assistant widget", () => {
     expect(screen.queryByRole("group", { name: "Suggested questions" })).not.toBeInTheDocument();
   });
 
-  it("'Create a new quote' makes the chat window big and keeps it open", async () => {
+  it("'Create a new quote' opens a full-screen New quote page with the chat and the quote so far", async () => {
     const user = userEvent.setup();
     renderAt("/");
     await user.click(openButton());
-    const panel = screen.getByRole("dialog", { name: "AI assistant" });
-    expect(panel).toHaveAttribute("data-size", "normal");
 
     await user.click(screen.getByRole("button", { name: /Create a new quote/ }));
 
-    expect(panel).toHaveAttribute("data-size", "expanded");
-    expect(screen.getByText(ASSISTANT_NEW_QUOTE_PROMPT)).toBeInTheDocument();
-    expect(screen.queryByRole("group", { name: "What would you like to do?" })).not.toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 1, name: "InsurAgent" })).toBeInTheDocument(); // still on the home page
+    const screenDialog = screen.getByRole("dialog", { name: "New quote" });
+    expect(within(screenDialog).getByRole("heading", { name: "New quote" })).toBeInTheDocument();
+    expect(within(screenDialog).getByRole("region", { name: "Quote conversation" })).toHaveTextContent(
+      "Hi! Let's create your quote together.",
+    );
+    const summary = within(screenDialog).getByRole("complementary", { name: "Your quote so far" });
+    for (const label of ["Full name", "Make", "Model", "Start date", "Cover level", "Optional extras"]) {
+      expect(within(summary).getByText(label)).toBeInTheDocument();
+    }
+    // The page stays on the home page underneath, and the small assistant is out of the way.
+    expect(screen.queryByRole("dialog", { name: "AI assistant" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Close assistant" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Back to assistant" })).toHaveFocus();
+  });
+
+  it("'Back to assistant' returns to the assistant chat", async () => {
+    const user = userEvent.setup();
+    renderAt("/");
+    await user.click(openButton());
+    await user.click(screen.getByRole("button", { name: /Create a new quote/ }));
+
+    await user.click(screen.getByRole("button", { name: "Back to assistant" }));
+
+    expect(screen.queryByRole("dialog", { name: "New quote" })).not.toBeInTheDocument();
+    expect(screen.getByRole("dialog", { name: "AI assistant" })).toBeInTheDocument();
     expect(screen.getByLabelText("Message")).toHaveFocus();
+  });
+
+  it("the New quote page closes with the × button and with Escape", async () => {
+    const user = userEvent.setup();
+    renderAt("/");
+    await user.click(openButton());
+    await user.click(screen.getByRole("button", { name: /Create a new quote/ }));
+
+    await user.click(screen.getByRole("button", { name: "Close new quote" }));
+    expect(screen.queryByRole("dialog", { name: "New quote" })).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: /Create a new quote/ }));
+    await user.keyboard("{Escape}");
+    expect(screen.queryByRole("dialog", { name: "New quote" })).not.toBeInTheDocument();
+    // Escape closed only the full-screen page, not the assistant panel under it.
+    expect(screen.getByRole("dialog", { name: "AI assistant" })).toBeInTheDocument();
   });
 
   it("can be shrunk and expanded again with the header button", async () => {
@@ -172,7 +206,7 @@ describe("AI assistant widget", () => {
     const user = userEvent.setup();
     renderAt("/");
     await user.click(openButton());
-    await user.click(screen.getByRole("button", { name: /Create a new quote/ }));
+    await user.click(screen.getByRole("button", { name: "Expand chat" }));
 
     await user.keyboard("{Escape}");
     await user.click(openButton());
